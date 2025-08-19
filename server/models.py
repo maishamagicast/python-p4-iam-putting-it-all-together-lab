@@ -10,13 +10,13 @@ class User(db.Model):
         db.String,
         default="https://cdn.vox-cdn.com/thumbor/I3GEucLDPT6sRdISXmY_Yh8IzDw=/0x0:1920x1080/1820x1024/filters:focal(960x540:961x541)/cdn.vox-cdn.com/uploads/chorus_asset/file/23952901/1240183845.jpg"
     )
-    bio = db.Column(db.String)
+    bio = db.Column(db.String, default="")
 
     recipes = db.relationship("Recipe", backref="user", lazy=True, cascade="all, delete-orphan")
 
     @property
     def password_hash(self):
-        return self._password_hash
+        raise AttributeError("Password is write-only")
 
     @password_hash.setter
     def password_hash(self, password):
@@ -41,7 +41,6 @@ class Recipe(db.Model):
     title = db.Column(db.String, nullable=False)
     instructions = db.Column(db.String, nullable=False)
     minutes_to_complete = db.Column(db.Integer, nullable=False)
-
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
 
     def to_dict(self):

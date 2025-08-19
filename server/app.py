@@ -8,9 +8,6 @@ from config import app, db, api, bcrypt
 from models import User, Recipe
 
 
-# -------------------------
-# USER AUTH RESOURCES
-# -------------------------
 
 class Signup(Resource):
     def post(self):
@@ -76,9 +73,7 @@ class Logout(Resource):
         return {}, 204
 
 
-# -------------------------
-# RECIPE RESOURCES
-# -------------------------
+
 
 class RecipeIndex(Resource):
     def get(self):
@@ -114,9 +109,6 @@ class RecipeIndex(Resource):
         return recipe.to_dict(), 201
 
 
-# -------------------------
-# REGISTER RESOURCES
-# -------------------------
 
 api.add_resource(Signup, '/signup')
 api.add_resource(Login, '/login')

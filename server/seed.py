@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+# !/usr/bin/env python3
 
 from random import randint, choice as rc
 
@@ -61,3 +61,6 @@ with app.app_context():
     
     db.session.commit()
     print("Complete.")
+
+
+
