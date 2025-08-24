@@ -1,8 +1,8 @@
-"""initial migration
+"""reset migrations
 
-Revision ID: 9a312c31061d
+Revision ID: d1ae4e81b71f
 Revises: 
-Create Date: 2025-08-19 10:52:54.241451
+Create Date: 2025-08-24 21:37:01.696880
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '9a312c31061d'
+revision = 'd1ae4e81b71f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,17 +21,18 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(), nullable=False),
-    sa.Column('email', sa.String(), nullable=False),
     sa.Column('_password_hash', sa.String(), nullable=False),
+    sa.Column('bio', sa.String(), nullable=True),
+    sa.Column('image_url', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
     op.create_table('recipes',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(), nullable=False),
     sa.Column('instructions', sa.Text(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('minutes_to_complete', sa.Integer(), nullable=True),
+    sa.Column('user_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], name=op.f('fk_recipes_user_id_users')),
     sa.PrimaryKeyConstraint('id')
     )
